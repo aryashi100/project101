@@ -8,14 +8,10 @@ services:
       - key: PORT
         value: 5000
       - key: GEMINI_API_KEY
-        sync: false # Render will prompt you to enter this value
+        sync: false
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET
         sync: false
       - key: GOOGLE_REDIRECT_URI
         sync: false
-    disk:
-      name: db-volume
-      mountPath: /opt/render/project/src/backend/prisma
-      sizeGB: 1
