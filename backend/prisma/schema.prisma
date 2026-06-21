@@ -1,0 +1,48 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Lead {
+  id              String         @id @default(uuid())
+  name            String
+  industry        String
+  location        String
+  phone           String?
+  website         String?
+  email           String?
+  contactName     String?        // Added
+  linkedinUrl     String?        // Added
+  jobDescription  String?        // Added
+  scrapedContent  String?
+  status          String         @default("new") // new, contacted, replied, booked, dead, review_required
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  
+  threadId        String?        // Gmail thread ID for tracking conversation
+  draftSubject    String?
+  draftBody       String?
+  lastContactedAt DateTime?
+
+  conversations   Conversation[]
+}
+
+model Conversation {
+  id             String   @id @default(uuid())
+  leadId         String
+  lead           Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  messageHistory String   // JSON array of messages: [{role, content, timestamp}]
+  stage          String   @default("opened") // opened, engaged, qualifying, booking_offered, booked, not_interested
+  extractedFacts String   // JSON object: {key_facts}
+  turnCount      Int      @default(0)
+  lastUpdated    DateTime @default(now()) @updatedAt
+}
+
+model Setting {
+  key   String @id
+  value String
+}

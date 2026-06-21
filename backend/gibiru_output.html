@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <META NAME="ROBOTS" CONTENT="NOINDEX, FOLLOW">
+    <link rel="icon" href="https://gibiru.com/assets/img/favicon.ico">
+
+    <title>Gibiru - Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="https://gibiru.com/assets/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="https://gibiru.com/assets/fontawesome-free-5.8.1-web/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://gibiru.com/assets/css/font-opensans.css">
+    <link rel="stylesheet" type="text/css" href="https://gibiru.com/assets/css/font-merriweather.css">
+  
+    <!-- Custom styles for this template -->
+    <link href="https://gibiru.com/assets/css/style.css?ver=2.8" rel="stylesheet">
+    <link href="https://gibiru.com/assets/css/stylemike.css?ver=3.1" rel="stylesheet">
+    <link href="https://gibiru.com/assets/css/stylemikenew.css?ver=5.2" rel="stylesheet">
+    
+    <!-- video: added -->
+    <link href="/assets/css/result-tabs.css?v=2" rel="stylesheet">
+
+  </head>
+
+<body class="gibiru-results gibiru-web">
+
+  <div class="containerhead">
+    <nav class="navbar navbar-light bg-light fixed-top" id="mainNav">
+      <a class="navbar-brand" href="https://gibiru.com/"><img src="https://gibiru.com/gibiru/wp-content/uploads/2019/06/Gibiru-result-logo.png" height="30"></a>
+     
+      <form id="cse-search-box" class="form-inline my-2 my-lg-0" action="results.html">
+        <div class="input-group gibiru-search has-clear mb-3">
+          <input autocomplete="off" type="text" class="form-control has-feedback has-clear" name="q" id="q" aria-describedby="button-addon2">
+          <span id="" class="form-control-clear far fa-times-circle"></span>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search new"></i></button>
+          </div>
+        </div>
+            <input id="selectedTab" type="hidden" name="rt" value="" />
+        <input name="cx" type="hidden" value="partner-pub-5956360965567042:8627692578" xvalue="dad3447e24d5af3f7" /> 
+        <input name="cof" type="hidden" value="FORID:11" /> 
+        <input name="ie" type="hidden" value="UTF-8" />
+      </form>
+      
+      <div class="secondary-menu">
+        <a class="icon-mobile-app" href="https://gibiru.com/download-app/#download-app">Mobile App</a>
+        <a class="icon-vpn" href="https://gibiru.com/vpn/#vpn">VPN</a>
+        <a class="icon-privacy" href="https://gibiru.com/privacy-policy/#privacy-policy">Privacy Policy</a>
+      </div>
+   
+    </nav>
+
+    <main role="main" class="">
+
+      <!-- video: added -->
+      <div class="nav-result-tabs">
+          <div class="container">
+              <div class="row">
+                  <div class="result-tab-container col-lg-12 col-md-12 col-sm-12">
+                      <div class="result-tab result-tab--active" data-type="web">Web</div>
+                      <div class="result-tab" data-type="image">Images</div>
+                      <div class="result-tab" data-type="video">Videos</div>
+                      <div class="result-tab" data-type="news">News</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="starter-template">
+        <div class="container" id="video-results" style="display:none">
+          <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                  <iframe id="videoResultIframe" data-src="/assets/video-results/index.html" 
+                    width="100%" frameborder="0" scrolling="no" style="min-height:600px"></iframe>
+              </div>
+          </div>
+        </div>
+
+        
+        <script>
+  //console.log();
+  
+  var cursearch = getAllUrlParams().q;
+  if (typeof cursearch == 'undefined'){
+    cursearch = '';
+  }
+  document.getElementById('q').value=cursearch;
+  
+  function getAllUrlParams(url) {
+
+  // get query string from url (optional) or window
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+  // we'll store the parameters here
+  var obj = {};
+
+  // if query string exists
+  if (queryString) {
+
+    // stuff after # is not part of query string, so get rid of it
+    queryString = queryString.split('#')[0];
+
+    // split our query string into its component parts
+    var arr = queryString.split('&');
+
+    for (var i = 0; i < arr.length; i++) {
+      // separate the keys and the values
+      var a = arr[i].split('=');
+
+      // set parameter name and value (use 'true' if empty)
+      var paramName = a[0];
+      var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+
+      // (optional) keep case consistent
+      paramName = paramName.toLowerCase();
+      if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+      // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+      if (paramName.match(/\[(\d+)?\]$/)) {
+
+        // create key if it doesn't exist
+        var key = paramName.replace(/\[(\d+)?\]/, '');
+        if (!obj[key]) obj[key] = [];
+
+        // if it's an indexed array e.g. colors[2]
+        if (paramName.match(/\[\d+\]$/)) {
+          // get the index value and add the entry at the appropriate position
+          var index = /\[(\d+)\]/.exec(paramName)[1];
+          obj[key][index] = paramValue;
+        } else {
+          // otherwise add the value to the end of the array
+          obj[key].push(paramValue);
+        }
+      } else {
+        // we're dealing with a string
+        if (!obj[paramName]) {
+          // if it doesn't exist, create property
+          obj[paramName] = paramValue;
+        } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+          // if property does exist and it's a string, convert it to an array
+          obj[paramName] = [obj[paramName]];
+          obj[paramName].push(paramValue);
+        } else {
+          // otherwise add the property
+          obj[paramName].push(paramValue);
+        }
+      }
+    }
+  }
+
+  return obj;
+}
+  
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    image: {
+      rendered: searchRenderedCallBack,
+    },
+    web: {
+      rendered: searchRenderedCallBack,
+    },
+  };
+
+  function searchRenderedCallBack(name, q, promos, results){
+      window.scrollTo(0,0);
+      window.gscLoaded = true;
+  }
+
+  (function() {
+    var cx = 'partner-pub-5956360965567042:9380749580';
+    //var cx = 'dad3447e24d5af3f7'; //fallback CSE
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+        </script>
+
+        <div id="web-results" class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <gcse:searchresults-only></gcse:searchresults-only>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+           
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    </main><!-- /.container -->
+  
+    <footer class="mastfoot text-center">
+        <div class="container">
+          <h2>2021 Gibiru © Uncensored Anonymous Proxy Search Engine</h2>
+        </div>
+    </footer>
+
+    <script src="https://gibiru.com/assets/js/jquery.min.js"></script>
+    <script src="https://gibiru.com/assets/js/bootstrap.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="https://gibiru.com/assets/js/jquery.easing.min.js"></script>
+    <script src="https://gibiru.com/assets/js/scrollreveal.min.js"></script>
+    <script src="https://gibiru.com/assets/js/gibiru.js?ver=1"></script>
+
+    <script src="/assets/js/result-tabs.js?v=3.2"></script>
+
+    <script type="text/javascript">
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 0) {
+          $('body').addClass('scrolled');
+        } else {
+          $('body').removeClass('scrolled');
+        }
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "ai-lead-generation-agent",
+  "version": "1.0.0",
+  "description": "Root package runner for AI Lead Generation & Outreach Agent",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "install-all": "npm install --prefix backend && npm install --prefix frontend",
+    "build": "npm install && npm run install-all && npm run build --prefix frontend && npm run db:generate --prefix backend",
+    "start": "npx prisma db push --schema=backend/prisma/schema.prisma && node backend/server.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
